@@ -41,3 +41,23 @@ app.post("/getCart", express.json(), function(req, res) {
         res.json(cart)
     })
 })
+
+app.post("/saveOrder", express.json(), function(req, res) {
+    addOrder(req.body.username, req.body.items)
+    .then(function() {
+        res.json({success: true})
+    })
+    .catch(function(err) {
+        res.json({success: false})
+    })
+})
+
+app.post("/clearCart", express.json(), function(req, res) {
+    clearCart(req.body.username)
+    .then(function() {
+        res.json({success: true})
+    })
+    .catch(function(err) {
+        res.json({success: false})
+    })
+})
