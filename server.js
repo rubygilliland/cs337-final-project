@@ -1,18 +1,26 @@
 var express = require("express")
 var app = express()
 var path = require("path")
+var crypto = require("crypto")
 
 var public_html = path.join(__dirname, "public_html") 
 
-function checkLogin(username, password){
-    for(var i=0;i<userList.length;i++){
-        var user = userList[i]
-        var hashedPass = crypto.createHash("sha256").update(password).digest("hex")
-        if(user.username==username && user.password==hashedPass){
-            return true
+function checkLogin(username, password, res){
+    var hashedPass = crypto.createHash("sha256").update(password).digest("hex")
+
+    getUser(username)
+    .then(function(user) {
+        if (user == null) {
+            res.json({success: false, message: "User not found"})
+        } else if (user.password == hashedPass) {
+            res.json({success: true})
+        } else {
+            res.json({success: false, message: "Incorrect password"})
         }
-    }
-    return false
+    })
+    .catch(function(err) {
+        res.json({success: false, message: "Error"})
+    })
 }
 
 app.get("/home", function(req, res){
