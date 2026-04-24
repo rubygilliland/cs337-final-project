@@ -13,6 +13,7 @@ function getCart(user) {
     })
     .then(function(doc) {
         console.log(doc)
+        return doc
     })
     .catch(function(err) {
         console.log(err)
@@ -69,6 +70,7 @@ function getUser(username) {
     })
     .then(function(doc) {
         console.log(doc)
+        return doc
     })
     .catch(function(err) {
         console.log(err)
