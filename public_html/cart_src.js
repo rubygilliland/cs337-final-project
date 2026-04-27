@@ -49,7 +49,11 @@ function showCart(cart) {
                                 <p>${product.price}</p>`
     }
 
-    cartTotal.innerText = parseInt(total)
+    if (total == 0) {
+        cartTotal.innerText = "0.00"
+    } else {
+        cartTotal.innerText = parseFloat(total)
+    }
 }
 
 function checkout() {
@@ -69,7 +73,7 @@ function checkout() {
         return res.json()
     })
     .then(function(cart) {
-        if (username != null) {
+        if (username != null && cart.items != []) {
             return fetch("/saveOrder", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -94,7 +98,9 @@ function checkout() {
         }
     })
     .then(function() {
-        document.getElementById("message").innerText = "Order placed successfully!"
+        if (cart.items != []) {
+            document.getElementById("message").innerText = "Order placed successfully!"
+        }
     })
     .catch(function(err) {
         console.log(err)

@@ -2,18 +2,20 @@ var express = require("express")
 var app = express()
 var path = require("path")
 var crypto = require("crypto")
+var mongo = require("./mongo.js")
 
 var public_html = path.join(__dirname, "public_html") 
 app.use(express.static(public_html))
+
 function checkLogin(username, password, res){
     var hashedPass = crypto.createHash("sha256").update(password).digest("hex")
 
-    getUser(username)
+    mongo.getUser(username)
     .then(function(user) {
         if (user == null) {
             res.json({success: false, message: "User not found"})
         } else if (user.password == hashedPass) {
-            res.json({success: true})
+            res.json({success: true, username: username})
         } else {
             res.json({success: false, message: "Incorrect password"})
         }
@@ -28,12 +30,13 @@ app.get("/home", function(req, res){
 })
 
 app.get("/products", function(req, res){
-    res.sendFile(path.join(__dirname, "products.html"))
+    res.sendFile(path.join(public_html, "products.html"))
 })
 
 app.get("/cart", function(req, res) {
-    res.sendFile(path.join(__dirname, "cart.html"))
+    res.sendFile(path.join(public_html, "cart.html"))
 })
+
 app.get("/login", function(req, res) {
     res.sendFile(path.join(public_html, "login.html"));
 });
@@ -47,14 +50,14 @@ app.post("/getCart", express.json(), function(req, res) {
         user = "Guest"
     }
 
-    getCart(user)
+    mongo.getCart(user)
     .then(function(cart) {
         res.json(cart)
     })
 })
 
 app.post("/saveOrder", express.json(), function(req, res) {
-    addOrder(req.body.username, req.body.items)
+    mongo.addOrder(req.body.username, req.body.items)
     .then(function() {
         res.json({success: true})
     })
@@ -64,7 +67,7 @@ app.post("/saveOrder", express.json(), function(req, res) {
 })
 
 app.post("/clearCart", express.json(), function(req, res) {
-    clearCart(req.body.username)
+    mongo.clearCart(req.body.username)
     .then(function() {
         res.json({success: true})
     })
@@ -77,8 +80,27 @@ app.post("/login", express.json(), function(req, res) {
     var password = req.body.password;
     checkLogin(username, password, res);
 });
+
 app.post("/register", express.json(), function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    res.json({ success: true, message: "Account created!" });
-});
+    var hashedPass = crypto.createHash("sha256").update(password).digest("hex")
+    mongo.getUser(username)
+    .then(function(existingUser) {
+        if (existingUser != null) {
+            res.json({success: false, message: "Username already exists"})
+        } else {
+            return mongo.addUser(username, hashedPass)
+            .then(function() {
+                res.json({success: true, message: "Account created!"})
+            })
+        }
+    })
+    .catch(function(err) {
+        res.json({success: false, message: "Error"})
+    })
+})
+
+app.listen(8080, function() {
+    console.log("Server started ...")
+})

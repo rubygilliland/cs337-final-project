@@ -21,6 +21,7 @@ if (loginForm) {
     }
 
     if (result.success) {
+      window.localStorage.setItem("username", result.username)
       window.location.href = "home.html";
     }
   });
@@ -50,6 +51,7 @@ if (registerForm) {
     }
 
     if (result.success) {
+      window.localStorage.setItem("username", result.username)
       window.location.href = "login.html";
     }
   });

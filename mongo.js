@@ -1,6 +1,14 @@
 var {MongoClient} = require("mongodb")
 var client = new MongoClient("mongodb://127.0.0.1:27017/")
 
+client.connect()
+.then(function() {
+    console.log("Connected to MongoDB")
+})
+.catch(function(err) {
+    console.log(err)
+})
+
 // user could be a username or "Guest"
 function getCart(user) {
     return client.connect()
@@ -12,14 +20,20 @@ function getCart(user) {
         return coll.findOne({"user": user})
     })
     .then(function(doc) {
+        if (doc == null) {
+            var db = client.db("uofaHoodies")
+            var coll = db.collection("cart")
+            var emptyCart = {"user": user, "items": []}
+            return coll.insertOne(emptyCart)
+            .then(function() {
+                return emptyCart
+            })
+        }
         console.log(doc)
         return doc
     })
     .catch(function(err) {
         console.log(err)
-    })
-    .finally(function() {
-        client.close()
     })
 }
 
@@ -29,16 +43,13 @@ function clearCart(user) {
     .then(function() {
         var db = client.db("uofaHoodies")
         var coll = db.collection("cart")
-        return coll.updateOne({"user": user}, {$set: {"products": []}})
+        return coll.updateOne({"user": user}, {$set: {"items": []}})
     })
     .then(function() {
         console.log("Cart cleared")
     })
     .catch(function(err) {
         console.log(err)
-    })
-    .finally(function() {
-        client.close()
     })
 }
 
@@ -54,9 +65,6 @@ function addOrder(user, order) {
     })
     .catch(function(err) {
         console.log(err)
-    })
-    .finally(function() {
-        client.close()
     })
 }
 
@@ -75,7 +83,21 @@ function getUser(username) {
     .catch(function(err) {
         console.log(err)
     })
-    .finally(function() {
-        client.close()
+}
+
+function addUser(username, password) {
+    return client.connect()
+    .then(function() {
+        var db = client.db("uofaHoodies")
+        var coll = db.collection("users")
+        return coll.insertOne({"username": username, "password": password, "orders": []})
+    })
+    .then(function() {
+        console.log("User added")
+    })
+    .catch(function(err) {
+        console.log(err)
     })
 }
+
+module.exports = {getCart, clearCart, addOrder, getUser, addUser}
