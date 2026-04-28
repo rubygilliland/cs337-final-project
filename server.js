@@ -101,6 +101,72 @@ app.post("/register", express.json(), function(req, res) {
     })
 })
 
+// serve the product detail page
+app.get("/product", function(req, res) {
+    res.sendFile(path.join(public_html, "product.html"))
+})
+ 
+// returns all products as JSON
+app.get("/getProducts", function(req, res) {
+    mongo.getProducts()
+    .then(function(products) {
+        res.json(products)
+    })
+    .catch(function(err) {
+        res.json({ error: "Failed to get products" })
+    })
+})
+ 
+// returns a single product by id from the query string (?id=...)
+app.get("/getProduct", function(req, res) {
+    var id = req.query.id
+    if (!id) {
+        res.json({ error: "No id provided" })
+        return
+    }
+    mongo.getProduct(id)
+    .then(function(product) {
+        if (!product) {
+            res.json({ error: "Product not found" })
+        } else {
+            res.json(product)
+        }
+    })
+    .catch(function(err) {
+        res.json({ error: "Failed to get product" })
+    })
+})
+ 
+// adds an item to the cart
+app.post("/addToCart", express.json(), function(req, res) {
+    var user = req.body.username || "Guest"
+    var productId = req.body.productId
+    var size = req.body.size
+ 
+    // first look up the full product so we can store its details in the cart
+    mongo.getProduct(productId)
+    .then(function(product) {
+        if (!product) {
+            res.json({ success: false, message: "Product not found" })
+            return
+        }
+        var item = {
+            name: product.name,
+            price: product.price,
+            image: product.image,
+            size: size
+        }
+        return mongo.addToCart(user, item)
+        .then(function() {
+            res.json({ success: true })
+        })
+    })
+    .catch(function(err) {
+        res.json({ success: false })
+    })
+})
+
+
 app.listen(8080, function() {
     console.log("Server started ...")
 })
