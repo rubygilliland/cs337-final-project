@@ -99,5 +99,52 @@ function addUser(username, password) {
         console.log(err)
     })
 }
+// returns all products
+function getProducts() {
+    return client.connect()
+    .then(function() {
+        var db = client.db("uofaHoodies")
+        var coll = db.collection("products")
+        return coll.find({}).toArray()
+    })
+    .catch(function(err) {
+        console.log(err)
+    })
+}
+ 
+// returns a single product by its _id string
+function getProduct(id) {
+    var { ObjectId } = require("mongodb")
+    return client.connect()
+    .then(function() {
+        var db = client.db("uofaHoodies")
+        var coll = db.collection("products")
+        return coll.findOne({ "_id": new ObjectId(id) })
+    })
+    .catch(function(err) {
+        console.log(err)
+    })
+}
+ 
+// adds a product (with chosen size) to a user's cart
+function addToCart(user, item) {
+    return client.connect()
+    .then(function() {
+        var db = client.db("uofaHoodies")
+        var coll = db.collection("cart")
+        return coll.updateOne(
+            { "user": user },
+            { $push: { "items": item } },
+            { upsert: true }  // creates the cart document if it doesn't exist yet
+        )
+    })
+    .then(function() {
+        console.log("Item added to cart for " + user)
+    })
+    .catch(function(err) {
+        console.log(err)
+    })
+}
 
-module.exports = {getCart, clearCart, addOrder, getUser, addUser}
+
+module.exports = {getCart, clearCart, addOrder, getUser, addUser, getProduct, getProducts, addToCart}
