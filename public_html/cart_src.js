@@ -38,7 +38,14 @@ function showCart(cart) {
     var cartItems = document.getElementById("cart_items")
     var cartTotal = document.getElementById("cart_total")
 
+    cartItems.innerHTML = ""
     var total = 0
+
+    if (items == null || items.length == 0) {
+        cartItems.innerHTML = "<p>Your cart is empty.</p>"
+        cartTotal.innerText = "0.00"
+        return
+    }
 
     for (var i = 0; i < items.length; i++) {
         product = items[i]
@@ -46,14 +53,11 @@ function showCart(cart) {
         cartItems.innerHTML += `<img src=${product.image}>
                                 <p>${product.name}</p>
                                 <p>${product.size}</p>
-                                <p>${product.price}</p>`
+                                <p>$${product.price}</p>`
     }
 
-    if (total == 0) {
-        cartTotal.innerText = "0.00"
-    } else {
-        cartTotal.innerText = parseFloat(total)
-    }
+    cartTotal.innerText = total.toFixed(2)
+
 }
 
 function checkout() {
@@ -73,6 +77,10 @@ function checkout() {
         return res.json()
     })
     .then(function(cart) {
+        if (cart.items == null || cart.items.length == 0) {
+            document.getElementById("message").innerText = "Your cart is empty!"
+            return
+        }
         if (username != null && cart.items != []) {
             return fetch("/saveOrder", {
                 method: "POST",
@@ -98,9 +106,8 @@ function checkout() {
         }
     })
     .then(function() {
-        if (cart.items != []) {
-            document.getElementById("message").innerText = "Order placed successfully!"
-        }
+        loadCart()
+        document.getElementById("message").innerText = "Order placed successfully!"
     })
     .catch(function(err) {
         console.log(err)
