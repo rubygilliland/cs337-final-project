@@ -2,17 +2,31 @@
 <html>
     <head>
         <title>Home</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            img {
+                width: 300px;
+                height: 300px;
+                object-fit: contain;
+            }
+        </style>
     </head>
     <body>
-        <h1>UofA Hoodies</h1>
-        <div>
-            <h3>Your home base for all hoodies and longewear that reps UofA!</h3>
-            <!--Add image/logo-->
+        <div id="header">
+            <h1>U of A Hoodies Store</h1>
         </div>
-        <nav>
-            <a href="/login">Account</a>
-            <a href="/products">Products</a>
-            <a href="/cart">Cart</a>
-        </nav>
+        <div id="block">
+            <h2>Your home base for all hoodies and longewear that reps U of A!</h2>
+            <br><br>
+            <img src="images/uofa_logo.png" alt="University of Arizona Logo" id="logo">
+        </div>
+        <footer>
+            <nav>
+                <a href="/login">Account</a> <span>|</span>
+                <a href="/products">Products</a> <span>|</span>
+                <a href="/cart">Cart</a>
+            </nav>
+        </footer>
+        
     </body>
 </html>

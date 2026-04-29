@@ -39,7 +39,11 @@ app.get("/cart", function(req, res) {
 
 app.get("/login", function(req, res) {
     res.sendFile(path.join(public_html, "login.html"));
-});
+})
+
+app.get("/register", function(req, res) {
+    res.sendFile(path.join(public_html, "register.html"));
+})
 
 app.post("/getCart", express.json(), function(req, res) {
     var user
