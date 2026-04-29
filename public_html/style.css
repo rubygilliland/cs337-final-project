@@ -1,0 +1,219 @@
+body {
+    background-color: #fbf6f3;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h1 {
+    margin: 0;
+}
+
+#header {
+    background-color: #c10330;
+    font-size: 45px;
+    font-style: italic;
+    color: #fbf6f3;
+    width: 100%;
+    padding: 50px;
+    top: 0;
+    left: 0;
+    margin: 0;
+}
+
+footer {
+    background-color: #c10330;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 30px;
+    width: 100%;
+}
+
+nav {
+    color: #fbf6f3;
+}
+
+a {
+    font-size: 20px;
+    color: #fbf6f3;
+}
+
+#loginForm, #registerForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    font-size: 25px;
+    color: #01205c;
+}
+
+input {
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+    width: 200px;
+}
+
+label {
+    width: 130px;
+    text-align: right;
+}
+
+.input_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 25px;
+    color: #01205c;
+}
+
+#createAccount {
+    color: #01205c;
+    font-size: 25px;
+    display: block;
+    margin-top: 20px;
+}
+
+#block {
+    color: #01205c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 350px);
+    font-size: 25px;
+}
+
+button {
+    font-family: 'Times New Roman', Times, serif;
+    color: #01205c;
+    font-size: 25px;
+    padding: 8px 20px;
+    margin-top: 10px;
+}
+
+#products_block {
+    color: #01205c;
+    text-align: center;
+    padding: 20px;
+    padding-bottom: 100px;
+}
+
+#product_grid {
+    display: grid;
+    grid-template-columns: repeat(2, 300px);
+    justify-content: center;
+    gap: 40px;
+    padding: 20px;
+}
+
+.product_card {
+    background-color: #fbf6f3;
+    padding: 15px;
+    text-align: center;
+    color: #01205c;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.product_card:hover {
+    outline: 3px solid #c10330;
+}
+
+.product_card img {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+.product_card h3 {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.product_card p {
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+#product_detail {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px;
+    gap: 60px;
+    margin: 150px;
+}
+
+#product_detail img {
+    width: 350px;
+    height: 350px;
+    object-fit: contain;
+    padding: 10px;
+}
+
+#product_info {
+    max-width: 400px;
+    text-align: left;
+    color: #01205c;
+}
+
+#product_info h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+#product_info p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#product_price {
+    font-size: 32px;
+    font-weight: bold;
+    color: #01205c;
+}
+
+.size_label {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.size_options {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.size_options label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    color: #01205c;
+    width: auto;
+    text-align: center;
+}
+
+.size_options input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 5px;
+    accent-color: #01205c;
+}
+
+#add_to_cart {
+    font-size: 18px;
+    padding: 10px 40px;
+    background-color: #d6d6d6;
+    border: none;
+    color: #01205c;
+}

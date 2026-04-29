@@ -2,34 +2,42 @@
 <html>
 <head>
   <title>Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>UofA Hoodies Store</h1>
-
-  <div id="loginSection">
+  <div id="header">
+    <h1>U of A Hoodies Store</h1>
+  </div>
+  <div id="block">
     <form id="loginForm">
-      <input id="username" placeholder="Username" required>
-      <input id="password" type="password" placeholder="Password" required>
+      <div class="input_row">
+            <label for="username">Username:</label>
+            <input id="username" required>
+      </div>
+      <div class="input_row">
+        <label for="password">Password:</label>
+        <input id="password" type="password" required>
+      </div>
+      <br><br>
       <button type="submit">Login</button>
     </form>
-
-    <a href="register.html">Create Account</a>
+    <br><br><br>
+    <a href="/register" id="createAccount">Create an Account</a>
+    <p id="message"></p>
   </div>
-
-  <div id="userSection" style="display: none;">
+    <div id="userSection" style="display: none;">
     <h2 id="welcome"></h2>
     <button id="logoutBtn">Logout</button>
     <button id="ordersBtn">View Orders</button>
   </div>
-
-  <p id="message"></p>
-
-  <nav>
-    <a href="/home">Home</a>
-    <a href="/products">Products</a>
-    <a href="/cart">Cart</a>
-  </nav>
+  <footer>
+    <nav>
+      <a href="/home">Home</a> <span>|</span>
+      <a href="/products">Products</a> <span>|</span>
+      <a href="/cart">Cart</a>
+    </nav>
+  </footer>
 
   <script src="account.js"></script>
 </body>
