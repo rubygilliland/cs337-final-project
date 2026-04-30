@@ -10,7 +10,8 @@
     <h1>U of A Hoodies Store</h1>
   </div>
   <div id="block">
-    <form id="loginForm">
+    <div id="loginSection">
+      <form id="loginForm">
       <div class="input_row">
             <label for="username">Username:</label>
             <input id="username" required>
@@ -25,12 +26,15 @@
     <br><br><br>
     <a href="/register" id="createAccount">Create an Account</a>
     <p id="message"></p>
-  </div>
+    </div>
     <div id="userSection" style="display: none;">
-    <h2 id="welcome"></h2>
-    <button id="logoutBtn">Logout</button>
-    <button id="ordersBtn">View Orders</button>
+      <h2 id="welcome"></h2>
+      <button id="logoutBtn">Logout</button>
+      <br>
+      <button id="ordersBtn">View Orders</button>
+    </div>
   </div>
+    
   <footer>
     <nav>
       <a href="/home">Home</a> <span>|</span>
