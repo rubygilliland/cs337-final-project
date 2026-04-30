@@ -41,6 +41,10 @@ app.get("/login", function(req, res) {
     res.sendFile(path.join(public_html, "login.html"));
 })
 
+app.get("/orders", function(req, res) {
+    res.sendFile(path.join(public_html, "orders.html"))
+})
+
 app.get("/register", function(req, res) {
     res.sendFile(path.join(public_html, "register.html"));
 })
@@ -102,6 +106,20 @@ app.post("/register", express.json(), function(req, res) {
     })
     .catch(function(err) {
         res.json({success: false, message: "Error"})
+    })
+})
+
+app.post("/getOrders", express.json(), function(req, res) {
+    mongo.getUser(req.body.username)
+    .then(function(user) {
+        if (user == null) {
+            res.json([])
+        } else {
+            res.json(user.orders)
+        }
+    })
+    .catch(function(err) {
+       res.json([]) 
     })
 })
 

@@ -22,7 +22,7 @@ if (loginForm) {
 
     if (result.success) {
       window.localStorage.setItem("username", result.username)
-      window.location.href = "home.html";
+      window.location.href = "/login";
     }
   });
 }
@@ -40,7 +40,7 @@ const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", function() {
     localStorage.removeItem("username");
-    window.location.href = "login.html";
+    window.location.href = "/login";
   });
 }
 //view orders button
@@ -48,7 +48,7 @@ const ordersBtn = document.getElementById("ordersBtn");
 
 if (ordersBtn) {
   ordersBtn.addEventListener("click", function() {
-    window.location.href = "orders.html";
+    window.location.href = "/orders";
   });
 }
 
@@ -78,7 +78,7 @@ if (registerForm) {
 
     if (result.success) {
       window.localStorage.setItem("username", result.username)
-      window.location.href = "login.html";
+      window.location.href = "/login";
     }
   });
 }

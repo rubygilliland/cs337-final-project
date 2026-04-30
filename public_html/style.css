@@ -29,6 +29,8 @@ footer {
     left: 0;
     padding: 30px;
     width: 100%;
+    align-items: center;
+
 }
 
 nav {
@@ -215,5 +217,48 @@ button {
     padding: 10px 40px;
     background-color: #d6d6d6;
     border: none;
+    color: #01205c;
+}
+
+#orders_block {
+    color: #01205c;
+    padding: 20px 60px;
+    padding-bottom: 100px;
+}
+
+.order {
+    margin-bottom: 40px;
+}
+
+.order h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.order_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 10px;
+}
+
+.order_item img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    background-color: #fbf6f3;
+    padding: 10px;
+}
+
+.order_item_info p {
+    margin: 5px 0;
+    font-size: 18px;
+    color: #01205c;
+}
+
+.order_total {
+    font-size: 18px;
+    margin-top: 10px;
     color: #01205c;
 }

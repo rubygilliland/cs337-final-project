@@ -53,6 +53,7 @@ function clearCart(user) {
     })
 }
 
+// returns updated user object with new order added to orders section
 function addOrder(user, order) {
     return client.connect()
     .then(function() {
