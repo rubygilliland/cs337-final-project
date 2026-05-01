@@ -75,10 +75,9 @@ if (registerForm) {
     if (result.message) {
       document.getElementById("message").textContent = result.message;
     }
-
-    if (result.success) {
-      window.localStorage.setItem("username", result.username)
-      window.location.href = "/login";
-    }
+  if (result.success) {
+    window.localStorage.setItem("username", username);
+    window.location.href = "/login";
+   }
   });
 }
