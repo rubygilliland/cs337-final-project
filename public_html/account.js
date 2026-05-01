@@ -11,7 +11,10 @@ document.getElementById("loginForm");
         if (result.message) { document.getElementById("message").textContent = result.message; } 
         if (result.success) { 
           window.localStorage.setItem("username", result.username) 
-          window.location.href = "/login"; } }); }
+          window.location.href = "/login"; } }); 
+        if (result.message) {
+        document.getElementById("message").textContent = result.message;
+}}
 //login info and message
  const savedUsername = localStorage.getItem("username"); 
  if (savedUsername && document.getElementById("loginSection"))
@@ -26,10 +29,26 @@ const ordersBtn = document.getElementById("ordersBtn");
  if (ordersBtn) { ordersBtn.addEventListener("click", function() 
   { window.location.href = "/orders"; }); } 
   //register 
-  const registerForm = document.getElementById("registerForm");
-   if (registerForm) { registerForm.addEventListener("submit", async function(e)
-     { e.preventDefault(); const username = document.getElementById("Username").value;
-       const password = document.getElementById("Password").value;
-        const response = await fetch("/register", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: username, password: password }) }); 
-        const result = await response.json(); if (result.message) { document.getElementById("message").textContent = result.message; } if (result.success) { window.localStorage.setItem("username", result.username)
-           window.location.href = "/login"; } }); }
+const registerForm = document.getElementById("registerForm");
+if (registerForm) {
+  registerForm.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    const response = await fetch("/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username: username, password: password })
+    });
+    const result = await response.json();
+    if (result.message) {
+      document.getElementById("message").textContent = result.message;
+    }
+    if (result.success) {
+      window.localStorage.setItem("username", result.username);
+      window.location.href = "/login";
+    }
+  });
+}

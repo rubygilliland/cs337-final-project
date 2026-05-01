@@ -285,3 +285,8 @@ button {
     font-size: 18px;
     color: #01205c;
 }
+#message {
+    color: red;
+    font-size: 18px;
+    margin-top: 10px;
+}
