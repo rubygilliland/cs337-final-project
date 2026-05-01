@@ -59,8 +59,8 @@ if (registerForm) {
   registerForm.addEventListener("submit", async function(e) {
     e.preventDefault();
 
-    const username = document.getElementById("newUsername").value;
-    const password = document.getElementById("newPassword").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
     const response = await fetch("/register", {
       method: "POST",
