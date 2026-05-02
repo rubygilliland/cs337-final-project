@@ -5,6 +5,7 @@ The application allows users to create accounts, browse hoodie products,
 add items to a cart, and place orders.
 
 **Follow the steps below to install dependencies and run the project.**
+
     1. Install required packages:
         npm install express mongodb
 
