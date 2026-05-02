@@ -18,7 +18,7 @@ add items to a cart, and place orders.
         node server.js
 
 The application will run at:
-http://localhost:3000/home
+http://localhost:8080/home
 
 **Project Structure**
 ```text
