@@ -136,7 +136,9 @@ function addToCart(user, item) {
         return coll.updateOne(
             { "user": user },
             { $push: { "items": item } },
-            { upsert: true }  // creates the cart document if it doesn't exist yet
+
+            // creates the cart document if it doesn't exist yet
+            { upsert: true }  
         )
     })
     .then(function() {
