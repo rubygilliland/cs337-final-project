@@ -8,18 +8,23 @@ document.getElementById("loginForm");
       const response = await fetch("/login", { method: "POST",
        headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: username, password: password }) });
         const result = await response.json(); 
+
         if (result.message) { document.getElementById("message").textContent = result.message; } 
         if (result.success) { 
           window.localStorage.setItem("username", result.username) 
-          window.location.href = "/login"; } }); 
-        if (result.message) {
-        document.getElementById("message").textContent = result.message;
-}}
+          window.location.href = "/home"; } }); 
+}
+
 //login info and message
  const savedUsername = localStorage.getItem("username"); 
+console.log("savedUsername:", savedUsername)
+console.log("loginSection:", document.getElementById("loginSection"))
+
+
  if (savedUsername && document.getElementById("loginSection"))
    { document.getElementById("loginSection").style.display = "none";
      document.getElementById("userSection").style.display = "block"; document.getElementById("welcome").textContent = "Hello, " + savedUsername; }
+
 //logout button '
 const logoutBtn = document.getElementById("logoutBtn");
  if (logoutBtn) { logoutBtn.addEventListener("click", function() { localStorage.removeItem("username");
