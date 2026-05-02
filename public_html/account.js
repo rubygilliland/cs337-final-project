@@ -17,10 +17,6 @@ document.getElementById("loginForm");
 
 //login info and message
  const savedUsername = localStorage.getItem("username"); 
-console.log("savedUsername:", savedUsername)
-console.log("loginSection:", document.getElementById("loginSection"))
-
-
  if (savedUsername && document.getElementById("loginSection"))
    { document.getElementById("loginSection").style.display = "none";
      document.getElementById("userSection").style.display = "block"; document.getElementById("welcome").textContent = "Hello, " + savedUsername; }

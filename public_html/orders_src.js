@@ -17,11 +17,15 @@ fetch("/getOrders", {
 .then(function(orders) {
     var ordersList = document.getElementById("orders_list")
 
+    // displays message if user has no orders
     if (orders == null || orders.length == 0) {
         ordersList.innerHTML = "<p>No orders yet.</p>"
         return
     }
 
+    // adds past orders to html page
+
+    // iterate through each order
     for (var i = orders.length - 1 ; i >= 0; i--) {
         var order = orders[i]
         var orderDiv = document.createElement("div")
@@ -30,6 +34,7 @@ fetch("/getOrders", {
         var total = 0
         var itemsHTML = ""
 
+        // iterate through each item in the current order
         for (var j = 0; j < order.length; j++) {
             var product = order[j]
             total += product.price
@@ -44,6 +49,8 @@ fetch("/getOrders", {
                 </div>
                 `
         }
+
+        // orders are numbered (1...n) oldest to newest
         orderDiv.innerHTML = `<h3>Order no. ${i + 1}</h3>
                                 ${itemsHTML}
                                 <p class ="order_total">Total: $${total.toFixed(2)}</p><br>`

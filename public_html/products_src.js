@@ -4,7 +4,9 @@ fetch("/getProducts")
 })
 .then(function(products) {
     var grid = document.getElementById("product_grid")
-    grid.innerHTML = "" // clear "Loading..." message
+
+    // clear "Loading..." message
+    grid.innerHTML = "" 
 
     if (products.length === 0) {
         grid.innerHTML = "<p id='message'>No products found.</p>"

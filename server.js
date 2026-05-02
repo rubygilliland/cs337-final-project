@@ -7,24 +7,6 @@ var mongo = require("./mongo.js")
 var public_html = path.join(__dirname, "public_html") 
 app.use(express.static(public_html))
 
-function checkLogin(username, password, res){
-    var hashedPass = crypto.createHash("sha256").update(password).digest("hex")
-
-    mongo.getUser(username)
-    .then(function(user) {
-        if (user == null) {
-            res.json({success: false, message: "User not found"})
-        } else if (user.password == hashedPass) {
-            res.json({success: true, username: username})
-        } else {
-            res.json({success: false, message: "Incorrect password"})
-        }
-    })
-    .catch(function(err) {
-        res.json({success: false, message: "Error"})
-    })
-}
-
 app.get("/home", function(req, res){
     res.sendFile(path.join(public_html, "home.html"))
 })
@@ -49,6 +31,7 @@ app.get("/register", function(req, res) {
     res.sendFile(path.join(public_html, "register.html"));
 })
 
+// sends cart info for user or guest as per request
 app.post("/getCart", express.json(), function(req, res) {
     var user
 
@@ -64,6 +47,7 @@ app.post("/getCart", express.json(), function(req, res) {
     })
 })
 
+// saves order to mongodb for user: username
 app.post("/saveOrder", express.json(), function(req, res) {
     mongo.addOrder(req.body.username, req.body.items)
     .then(function() {
@@ -74,6 +58,7 @@ app.post("/saveOrder", express.json(), function(req, res) {
     })
 })
 
+// clears current cart in mongodb for user/guest
 app.post("/clearCart", express.json(), function(req, res) {
     mongo.clearCart(req.body.username)
     .then(function() {
@@ -83,18 +68,23 @@ app.post("/clearCart", express.json(), function(req, res) {
         res.json({success: false})
     })
 })
+
+// checks login information with checkLogin function
 app.post("/login", express.json(), function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
     checkLogin(username, password, res);
 });
 
+// saves user and pass for new user to mongodb, hashes password
 app.post("/register", express.json(), function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
     var hashedPass = crypto.createHash("sha256").update(password).digest("hex")
     mongo.getUser(username)
     .then(function(existingUser) {
+
+        // ensures that accounts with the same username are not created
         if (existingUser != null) {
             res.json({success: false, message: "Username already exists"})
         } else {
@@ -109,6 +99,7 @@ app.post("/register", express.json(), function(req, res) {
     })
 })
 
+// retrieves all orders of given user from mongodb, as list
 app.post("/getOrders", express.json(), function(req, res) {
     mongo.getUser(req.body.username)
     .then(function(user) {
@@ -187,6 +178,25 @@ app.post("/addToCart", express.json(), function(req, res) {
         res.json({ success: false })
     })
 })
+
+// verifies valid login information and hashes password
+function checkLogin(username, password, res){
+    var hashedPass = crypto.createHash("sha256").update(password).digest("hex")
+
+    mongo.getUser(username)
+    .then(function(user) {
+        if (user == null) {
+            res.json({success: false, message: "User not found"})
+        } else if (user.password == hashedPass) {
+            res.json({success: true, username: username})
+        } else {
+            res.json({success: false, message: "Incorrect password"})
+        }
+    })
+    .catch(function(err) {
+        res.json({success: false, message: "Error"})
+    })
+}
 
 
 app.listen(8080, function() {
