@@ -11,7 +11,7 @@ add items to a cart, and place orders.
 
     2. Make sure MongoDB is running.
 
-    3. Run the product seed script: 
+    3. Run the product seed script:* 
         node seedProducts.js
 
     3. Start the server:
@@ -19,6 +19,9 @@ add items to a cart, and place orders.
 
 The application will run at:
 http://localhost:8080/home
+
+*Make sure to only run the seed script ONCE on your device! Running it multiple
+times will create unwanted duplicates of objects
 
 **Project Structure**
 ```text
