@@ -16,8 +16,9 @@ document.getElementById("loginForm");
 }
 
 //login info and message
+
  const savedUsername = localStorage.getItem("username"); 
- if (savedUsername && document.getElementById("loginSection"))
+ if (savedUsername && savedUsername != "undefined" && document.getElementById("loginSection"))
    { document.getElementById("loginSection").style.display = "none";
      document.getElementById("userSection").style.display = "block"; document.getElementById("welcome").textContent = "Hello, " + savedUsername; }
 
@@ -48,8 +49,8 @@ if (registerForm) {
       document.getElementById("message").textContent = result.message;
     }
     if (result.success) {
+      window.localStorage.removeItem("username")
       window.localStorage.setItem("username", result.username);
-      window.location.href = "/login";
     }
   });
 }
